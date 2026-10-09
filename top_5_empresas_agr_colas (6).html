@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 5 Empresas Agrícolas Más Grandes del Mundo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        agro: {
+                            950: '#02180b',
+                            900: '#052e16',
+                            800: '#065f46',
+                            700: '#047857',
+                            600: '#059669',
+                            500: '#10b981',
+                            400: '#34d399',
+                            100: '#d1fae5',
+                            50: '#ecfdf5',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar and ambient styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #052e16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #34d399;
+        }
+        
+        .glass-card {
+            background: rgba(5, 46, 22, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card-hover:hover {
+            transform: translateY(-4px);
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(16, 185, 129, 0.2);
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-agro-950 text-slate-100 font-sans min-h-screen relative overflow-x-hidden">
+
+    <!-- Interactive Organic Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Main Dynamic Content Wrapper -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- Navigation Header -->
+        <header class="sticky top-0 z-50 glass-card border-b border-agro-800/50 bg-agro-950/80 backdrop-blur-md">
+            <div class="max-w-7xl mx-mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agro-500 to-amber-500 flex items-center justify-center text-agro-950 font-bold text-xl shadow-lg shadow-agro-500/30">
+                        <i class="fa-solid font-wheat">🌾</i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold font-serif tracking-wide bg-gradient-to-r from-emerald-400 via-teal-200 to-amber-400 bg-clip-text text-transparent">AgroLíderes</span>
+                        <span class="block text-xs text-agro-400 font-medium tracking-wider uppercase">Portal Agrícola Mundial</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#empresas" class="hover:text-agro-400 transition-colors flex items-center gap-2"><i class="fa-solid fa-building-wheat text-amber-500"></i> Top 5 Empresas</a>
+                    <a href="#clima" class="hover:text-agro-400 transition-colors flex items-center gap-2"><i class="fa-solid fa-cloud-sun text-emerald-400"></i> Clima & Siembra</a>
+                    <a href="#calculadora" class="hover:text-agro-400 transition-colors flex items-center gap-2"><i class="fa-solid fa-calculator text-teal-400"></i> Calculadora</a>
+                    <a href="#trivia" class="hover:text-agro-400 transition-colors flex items-center gap-2"><i class="fa-solid fa-gamepad text-amber-400"></i> Trivia Agro</a>
+                </nav>
+
+                <!-- Ambient Audio Control Button -->
+                <button id="audio-toggle-btn" onclick="toggleAmbientAudio()" class="px-4 py-2 rounded-full border border-agro-600 bg-agro-900/60 hover:bg-agro-800 transition flex items-center gap-2 text-xs font-semibold text-emerald-300 shadow-inner">
+                    <i id="audio-icon" class="fa-solid fa-volume-xmark text-slate-400"></i>
+                    <span id="audio-status">Ambiente del Campo</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-agro-500/30 bg-agro-900/40 text-agro-300 text-xs font-semibold mb-6 animate-pulse">
+                <i class="fa-solid fa-globe text-emerald-400"></i> Análisis Global de la Industria Alimentaria y Tecnológica
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold font-serif text-white tracking-tight max-w-4xl mx-auto leading-tight">
+                Las <span class="bg-gradient-to-r from-emerald-400 to-amber-400 bg-clip-text text-transparent">5 Empresas Agrícolas</span> Más Titánicas del Planeta
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+                Descubre los colosos responsables de la biotecnología, maquinaria pesada, fertilizantes y distribución global de alimentos que nutren a más de 8 mil millones de personas.
+            </p>
+
+            <!-- KPI Quick Info Badges -->
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <p class="text-2xl font-extrabold text-amber-400 font-serif">+ $350B</p>
+                    <p class="text-xs text-slate-300 mt-1">Ingresos Combinados Anuales</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <p class="text-2xl font-extrabold text-emerald-400 font-serif">+150</p>
+                    <p class="text-xs text-slate-300 mt-1">Países con Operaciones</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <p class="text-2xl font-extrabold text-teal-400 font-serif">8.000M</p>
+                    <p class="text-xs text-slate-300 mt-1">Personas Beneficiadas</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                    <p class="text-2xl font-extrabold text-amber-300 font-serif">1837</p>
+                    <p class="text-xs text-slate-300 mt-1">Pioneros desde el S. XIX</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top 5 Companies Main Section -->
+        <section id="empresas" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            <div class="border-l-4 border-emerald-500 pl-4 mb-10">
+                <h2 class="text-3xl font-bold font-serif text-white">Ranking de Gigantes Agrícolas</h2>
+                <p class="text-slate-400 text-sm mt-1">Líderes de mercado, sedes mundiales y estructuras de propiedad.</p>
+            </div>
+
+            <div class="space-y-12">
+
+                <!-- EMPRESA 1: CARGILL -->
+                <div class="glass-card glass-card-hover rounded-3xl overflow-hidden border border-agro-800/80 shadow-2xl grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative min-h-[280px] bg-agro-900/60 overflow-hidden">
+                        <!-- Strict Local Image 1 -->
+                        <img src="images/empresa1.jpg" alt="Cargill" class="w-full h-full object-cover" onerror="handleImageError(this, 'Cargill', 'images/empresa1.jpg', '🌾')">
+                        <div class="absolute top-4 left-4 bg-emerald-500 text-agro-950 font-extrabold px-3 py-1 rounded-full text-xs shadow-lg">
+                            #1 Gigante Privado
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white font-serif">1. Cargill, Inc.</h3>
+                                    <p class="text-sm text-emerald-400 font-medium flex items-center gap-2 mt-1">
+                                        <i class="fa-solid fa-flag-usa"></i> Estados Unidos
+                                    </p>
+                                </div>
+                                <span class="bg-agro-900 border border-agro-700 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-mono font-semibold">
+                                    Fundada: 1865
+                                </span>
+                            </div>
+
+                            <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+                                <p><strong class="text-emerald-300">Aporte al mundo agrícola:</strong> Es el mayor comerciante privado de granos, oleaginosas y materias primas agrícolas del mundo. Procesa proteína animal, nutrición para ganado y conecta a agricultores de más de 70 países con mercados globales de exportación.</p>
+                                
+                                <div class="p-3.5 rounded-xl bg-agro-900/80 border border-agro-800 text-xs space-y-1">
+                                    <p class="text-amber-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-emerald-400"></i> Sede Central (Ubicación):
+                                    </p>
+                                    <p class="text-slate-200 font-mono">Minnetonka, Minnesota, Estados Unidos.</p>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-900/50 text-xs space-y-1">
+                                    <p class="text-emerald-400 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-user-tie text-amber-400"></i> Fundadores y Propiedad / Dueños:
+                                    </p>
+                                    <p class="text-slate-300">
+                                        <strong>Fundador:</strong> William Wallace (W. W.) Cargill en Iowa (1865).<br>
+                                        <strong>Dueños Actuales:</strong> Es una de las corporaciones privadas más grandes del mundo. Aproximadamente el <strong>88% de la empresa permanece en propiedad de los herederos de las familias Cargill y MacMillan</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMPRESA 2: ADM (Archer Daniels Midland) -->
+                <div class="glass-card glass-card-hover rounded-3xl overflow-hidden border border-agro-800/80 shadow-2xl grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative min-h-[280px] bg-agro-900/60 overflow-hidden">
+                        <!-- Strict Local Image 2 -->
+                        <img src="images/empresa2.jpg" alt="Archer Daniels Midland" class="w-full h-full object-cover" onerror="handleImageError(this, 'ADM (Archer Daniels Midland)', 'images/empresa2.jpg', '🌽')">
+                        <div class="absolute top-4 left-4 bg-emerald-500 text-agro-950 font-extrabold px-3 py-1 rounded-full text-xs shadow-lg">
+                            #2 Procesador Mundial
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white font-serif">2. Archer Daniels Midland (ADM)</h3>
+                                    <p class="text-sm text-emerald-400 font-medium flex items-center gap-2 mt-1">
+                                        <i class="fa-solid fa-flag-usa"></i> Estados Unidos
+                                    </p>
+                                </div>
+                                <span class="bg-agro-900 border border-agro-700 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-mono font-semibold">
+                                    Fundada: 1902
+                                </span>
+                            </div>
+
+                            <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+                                <p><strong class="text-emerald-300">Aporte al mundo agrícola:</strong> Líder global en la transformación de cultivos de maíz, soya y semillas oleaginosas en aceites comestibles, harinas proteicas, biocombustibles e ingredientes esenciales para la nutrición humana y animal.</p>
+
+                                <div class="p-3.5 rounded-xl bg-agro-900/80 border border-agro-800 text-xs space-y-1">
+                                    <p class="text-amber-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-emerald-400"></i> Sede Central (Ubicación):
+                                    </p>
+                                    <p class="text-slate-200 font-mono">Chicago, Illinois, Estados Unidos.</p>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-900/50 text-xs space-y-1">
+                                    <p class="text-emerald-400 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-user-tie text-amber-400"></i> Fundadores y Propiedad / Dueños:
+                                    </p>
+                                    <p class="text-slate-300">
+                                        <strong>Fundadores:</strong> George A. Archer y John W. Daniels como un negocio de trituración de lino.<br>
+                                        <strong>Dueños Actuales:</strong> Empresa de capital abierto listada en la Bolsa de Nueva York (NYSE: ADM). Sus accionistas mayoritarios son grandes fondos institucionales globales como <strong>The Vanguard Group, BlackRock y State Street Corporation</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMPRESA 3: SYNGENTA -->
+                <div class="glass-card glass-card-hover rounded-3xl overflow-hidden border border-agro-800/80 shadow-2xl grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative min-h-[280px] bg-agro-900/60 overflow-hidden">
+                        <!-- Strict Local Image 3 -->
+                        <img src="images/empresa3.jpg" alt="Syngenta Group" class="w-full h-full object-cover" onerror="handleImageError(this, 'Syngenta Group', 'images/empresa3.jpg', '🧪')">
+                        <div class="absolute top-4 left-4 bg-emerald-500 text-agro-950 font-extrabold px-3 py-1 rounded-full text-xs shadow-lg">
+                            #3 Biotecnología & Semillas
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white font-serif">3. Syngenta Group</h3>
+                                    <p class="text-sm text-emerald-400 font-medium flex items-center gap-2 mt-1">
+                                        <i class="fa-solid fa-building-columns"></i> Suiza / China
+                                    </p>
+                                </div>
+                                <span class="bg-agro-900 border border-agro-700 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-mono font-semibold">
+                                    Fundada: 2000
+                                </span>
+                            </div>
+
+                            <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+                                <p><strong class="text-emerald-300">Aporte al mundo agrícola:</strong> Gigante mundial en protección de cultivos (pesticidas, fungicidas, herbicidas) y tecnología genómica de semillas híbridas de alto rendimiento que aseguran la producción frente al cambio climático.</p>
+
+                                <div class="p-3.5 rounded-xl bg-agro-900/80 border border-agro-800 text-xs space-y-1">
+                                    <p class="text-amber-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-emerald-400"></i> Sede Central (Ubicación):
+                                    </p>
+                                    <p class="text-slate-200 font-mono">Basilea, Suiza (Sede Global) y Pekín, China.</p>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-900/50 text-xs space-y-1">
+                                    <p class="text-emerald-400 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-user-tie text-amber-400"></i> Fundadores y Propiedad / Dueños:
+                                    </p>
+                                    <p class="text-slate-300">
+                                        <strong>Origen / Fundadores:</strong> Nació en el año 2000 fruto de la fusión de las divisiones agrícolas de Novartis y AstraZeneca.<br>
+                                        <strong>Dueños Actuales:</strong> Adquirida en 2017 por $43.000 millones. Actualmente es una subsidiaria de propiedad total del conglomerado estatal multinacional <strong>ChemChina / Sinochem Holdings Corporation</strong> (propiedad del gobierno chino).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMPRESA 4: JOHN DEERE -->
+                <div class="glass-card glass-card-hover rounded-3xl overflow-hidden border border-agro-800/80 shadow-2xl grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative min-h-[280px] bg-agro-900/60 overflow-hidden">
+                        <!-- Strict Local Image 4 -->
+                        <img src="images/empresa4.jpg" alt="John Deere" class="w-full h-full object-cover" onerror="handleImageError(this, 'John Deere', 'images/empresa4.jpg', '🚜')">
+                        <div class="absolute top-4 left-4 bg-amber-500 text-agro-950 font-extrabold px-3 py-1 rounded-full text-xs shadow-lg">
+                            #4 Maquinaria & AgroTech
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white font-serif">4. John Deere (Deere & Company)</h3>
+                                    <p class="text-sm text-emerald-400 font-medium flex items-center gap-2 mt-1">
+                                        <i class="fa-solid fa-flag-usa"></i> Estados Unidos
+                                    </p>
+                                </div>
+                                <span class="bg-agro-900 border border-agro-700 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-mono font-semibold">
+                                    Fundada: 1837
+                                </span>
+                            </div>
+
+                            <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+                                <p><strong class="text-emerald-300">Aporte al mundo agrícola:</strong> Ícono de la mecanización agrícola. Fabrica tractores autonómicos, cosechadoras con sensores IA, sembradoras de precisión e integración de datos por satélite para agricultura inteligente.</p>
+
+                                <div class="p-3.5 rounded-xl bg-agro-900/80 border border-agro-800 text-xs space-y-1">
+                                    <p class="text-amber-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-emerald-400"></i> Sede Central (Ubicación):
+                                    </p>
+                                    <p class="text-slate-200 font-mono">Moline, Illinois, Estados Unidos.</p>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-900/50 text-xs space-y-1">
+                                    <p class="text-emerald-400 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-user-tie text-amber-400"></i> Fundadores y Propiedad / Dueños:
+                                    </p>
+                                    <p class="text-slate-300">
+                                        <strong>Fundador:</strong> John Deere, herrero e inventor del primer arado de acero pulido de autolimpieza.<br>
+                                        <strong>Dueños Actuales:</strong> Empresa pública cotizada en Wall Street (NYSE: DE). Sus principales dueños son inversores institucionales de gran escala como <strong>The Vanguard Group, BlackRock y Cascade Investment (la firma de inversión privada de Bill Gates)</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMPRESA 5: NUTRIEN -->
+                <div class="glass-card glass-card-hover rounded-3xl overflow-hidden border border-agro-800/80 shadow-2xl grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative min-h-[280px] bg-agro-900/60 overflow-hidden">
+                        <!-- Strict Local Image 5 -->
+                        <img src="images/empresa5.jpg" alt="Nutrien" class="w-full h-full object-cover" onerror="handleImageError(this, 'Nutrien Ltd.', 'images/empresa5.jpg', '🌱')">
+                        <div class="absolute top-4 left-4 bg-emerald-500 text-agro-950 font-extrabold px-3 py-1 rounded-full text-xs shadow-lg">
+                            #5 Nutrientes y Fertilizantes
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white font-serif">5. Nutrien Ltd.</h3>
+                                    <p class="text-sm text-emerald-400 font-medium flex items-center gap-2 mt-1">
+                                        <i class="fa-solid fa-leaf"></i> Canadá
+                                    </p>
+                                </div>
+                                <span class="bg-agro-900 border border-agro-700 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-mono font-semibold">
+                                    Fundada: 2018
+                                </span>
+                            </div>
+
+                            <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+                                <p><strong class="text-emerald-300">Aporte al mundo agrícola:</strong> El mayor proveedor del mundo de nutrientes agrícolas esenciales: Potasa (K), Nitrógeno (N) y Fosfato (P). Además posee una red minorista de más de 2.000 tiendas de servicios para agricultores.</p>
+
+                                <div class="p-3.5 rounded-xl bg-agro-900/80 border border-agro-800 text-xs space-y-1">
+                                    <p class="text-amber-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-emerald-400"></i> Sede Central (Ubicación):
+                                    </p>
+                                    <p class="text-slate-200 font-mono">Saskatoon, Saskatchewan, Canadá.</p>
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-900/50 text-xs space-y-1">
+                                    <p class="text-emerald-400 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-user-tie text-amber-400"></i> Fundadores y Propiedad / Dueños:
+                                    </p>
+                                    <p class="text-slate-300">
+                                        <strong>Origen / Fusión:</strong> Creada mediante la mega-fusión de PotashCorp (Corporación de Potasa de Saskatchewan) y Agrium Inc.<br>
+                                        <strong>Dueños Actuales:</strong> Cotiza públicamente en las bolsas de Toronto (TSX) y Nueva York (NYSE: NTR). Pertenece a fondos de pensiones e inversores institucionales globales como <strong>Royal Bank of Canada, Vanguard Group y Norges Bank Investment Management</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Live Weather & Smart Crop Planting Calendar Section -->
+        <section id="clima" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-agro-700/60 shadow-2xl">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold mb-2">
+                            <i class="fa-solid fa-satellite"></i> API Open-Meteo en Vivo
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-white">Asistente de Clima & Calendario de Siembra</h2>
+                        <p class="text-slate-300 text-sm mt-1">Obtén la temperatura de tu zona y recomendaciones biológicas para tus cultivos.</p>
+                    </div>
+                    <button onclick="getUserLocationAndWeather()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-agro-950 font-bold text-sm shadow-lg shadow-emerald-500/20 transition flex items-center gap-2">
+                        <i class="fa-solid fa-location-crosshairs"></i> Detectar Mi Ubicación
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Weather Display Widget -->
+                    <div class="lg:col-span-5 bg-agro-900/80 p-6 rounded-2xl border border-agro-800 text-center flex flex-col items-center justify-center min-h-[220px]">
+                        <div id="weather-loading" class="text-slate-400 text-sm flex flex-col items-center gap-2">
+                            <i class="fa-solid fa-circle-notch fa-spin text-2xl text-emerald-400"></i>
+                            Cargando datos climatológicos...
+                        </div>
+                        <div id="weather-content" class="hidden w-full">
+                            <span id="weather-icon-box" class="text-5xl mb-2 inline-block">☀️</span>
+                            <h3 id="weather-temp" class="text-4xl font-extrabold text-white font-serif">-- °C</h3>
+                            <p id="weather-location" class="text-emerald-400 font-medium text-sm mt-1">--</p>
+                            <div class="mt-4 pt-4 border-t border-agro-800 flex justify-around text-xs text-slate-300">
+                                <div>
+                                    <span class="block text-slate-400">Viento</span>
+                                    <span id="weather-wind" class="font-bold text-white">-- km/h</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-400">Cielo</span>
+                                    <span id="weather-code" class="font-bold text-white">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Crop Planting Recommendation -->
+                    <div class="lg:col-span-7 bg-slate-900/80 p-6 rounded-2xl border border-emerald-900/40">
+                        <h4 class="text-lg font-bold text-amber-400 flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-seedling"></i> Recomendación de Siembra Inteligente
+                        </h4>
+                        <div id="crop-recommendation" class="text-sm text-slate-300 space-y-3">
+                            <p>Toca en <strong>"Detectar Mi Ubicación"</strong> o consulta abajo las pautas térmicas de siembra según la temperatura estacional actual.</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                                <div class="bg-agro-950/60 p-3 rounded-xl border border-agro-800">
+                                    <p class="text-xs text-emerald-400 font-bold">10°C - 18°C (Clima Templado/Frío)</p>
+                                    <p class="text-xs text-slate-300 mt-1">Trigo, Cebada, Avena, Espinaca y Zanahorias. Meses óptimos: Otoño / Primavera temprana.</p>
+                                </div>
+                                <div class="bg-agro-950/60 p-3 rounded-xl border border-agro-800">
+                                    <p class="text-xs text-amber-400 font-bold">19°C - 32°C (Clima Cálido)</p>
+                                    <p class="text-xs text-slate-300 mt-1">Maíz, Soya, Girasol, Tomates y Algodón. Meses óptimos: Primavera / Verano.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Agricultural Calculator -->
+        <section id="calculadora" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-agro-700/60 shadow-2xl">
+                <div class="border-l-4 border-amber-500 pl-4 mb-8">
+                    <h2 class="text-3xl font-bold font-serif text-white">Calculadora de Impacto Agrícola</h2>
+                    <p class="text-slate-400 text-sm mt-1">Estimación de producción, ahorro hídrico y rendimiento tecnológico por hectáreas.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Form Input Fields -->
+                    <div class="lg:col-span-5 space-y-5 bg-agro-900/40 p-6 rounded-2xl border border-agro-800">
+                        <div>
+                            <label for="calc-hectares" class="block text-xs font-semibold text-emerald-300 uppercase tracking-wider mb-2">Superficie a Cultivar (Hectáreas)</label>
+                            <input type="number" id="calc-hectares" value="50" min="1" max="100000" class="w-full bg-agro-950 border border-agro-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 font-mono text-lg" oninput="calculateImpact()">
+                        </div>
+
+                        <div>
+                            <label for="calc-crop" class="block text-xs font-semibold text-emerald-300 uppercase tracking-wider mb-2">Tipo de Cultivo</label>
+                            <select id="calc-crop" class="w-full bg-agro-950 border border-agro-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 text-sm" onchange="calculateImpact()">
+                                <option value="maiz">🌽 Maíz de Alto Rendimiento</option>
+                                <option value="soya">🌱 Soya Biotecnológica</option>
+                                <option value="trigo">🌾 Trigo Seleccionado</option>
+                                <option value="girasol">🌻 Girasol Oleaginoso</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="calc-tech" class="block text-xs font-semibold text-emerald-300 uppercase tracking-wider mb-2">Tecnología de Precisión Utilizada</label>
+                            <select id="calc-tech" class="w-full bg-agro-950 border border-agro-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 text-sm" onchange="calculateImpact()">
+                                <option value="basica">Mecanización Tradicional</option>
+                                <option value="intermedia">Sensores y GPS (John Deere / ADM Tech)</option>
+                                <option value="avanzada">Semilla Genómica + Riego Inteligente (Syngenta + Nutrien)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Calculated Results Display -->
+                    <div class="lg:col-span-7 bg-gradient-to-br from-agro-900 to-slate-900 p-6 rounded-2xl border border-emerald-500/30 flex flex-col justify-between">
+                        <h4 class="text-amber-400 font-serif font-bold text-xl mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line"></i> Estimación de Producción
+                        </h4>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="bg-agro-950/80 p-4 rounded-xl border border-agro-800 text-center">
+                                <span class="text-xs text-slate-400 uppercase font-semibold">Cosecha Estimada</span>
+                                <p id="res-yield" class="text-2xl font-extrabold text-emerald-400 font-mono mt-1">0 Tn</p>
+                                <span class="text-[10px] text-slate-500">Toneladas Métricas</span>
+                            </div>
+
+                            <div class="bg-agro-950/80 p-4 rounded-xl border border-agro-800 text-center">
+                                <span class="text-xs text-slate-400 uppercase font-semibold">Agua Ahorrada</span>
+                                <p id="res-water" class="text-2xl font-extrabold text-teal-300 font-mono mt-1">0 L</p>
+                                <span class="text-[10px] text-slate-500">Litros vs Tradicional</span>
+                            </div>
+
+                            <div class="bg-agro-950/80 p-4 rounded-xl border border-agro-800 text-center">
+                                <span class="text-xs text-slate-400 uppercase font-semibold">Valor Estimado</span>
+                                <p id="res-value" class="text-2xl font-extrabold text-amber-400 font-mono mt-1">$0 USD</p>
+                                <span class="text-[10px] text-slate-500">Mercado de Granos</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 rounded-xl bg-agro-950/60 border border-agro-800 text-xs text-slate-300 flex items-center gap-3">
+                            <i class="fa-solid fa-lightbulb text-amber-400 text-xl flex-shrink-0"></i>
+                            <p>El uso de semillas modificadas de Syngenta con fertilización optimizada de Nutrien y maquinaria automatizada de John Deere puede elevar la productividad hasta un 35%.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Quiz Trivia Section -->
+        <section id="trivia" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full mb-12">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-agro-700/60 shadow-2xl">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-8">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">Desafío de Conocimiento</span>
+                        <h2 class="text-3xl font-bold font-serif text-white mt-1">Trivia: ¿Cuánto sabes de los Gigantes Agrícolas?</h2>
+                    </div>
+                    <div class="bg-agro-900 border border-agro-700 px-4 py-2 rounded-2xl text-right">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold block">Puntaje Máximo Record</span>
+                        <span id="quiz-high-score" class="text-lg font-bold text-amber-400 font-mono">0 pts</span>
+                    </div>
+                </div>
+
+                <div id="quiz-container" class="max-w-3xl mx-auto bg-agro-900/60 p-6 sm:p-8 rounded-2xl border border-agro-800">
+                    <!-- Dynamic Question Holder -->
+                    <div id="quiz-question-box">
+                        <div class="flex justify-between items-center text-xs text-emerald-400 font-semibold mb-3">
+                            <span id="quiz-progress-text">Pregunta 1 de 5</span>
+                            <span id="quiz-current-score">Puntos: 0</span>
+                        </div>
+                        <h3 id="quiz-question" class="text-xl font-bold text-white mb-6">Cargando pregunta...</h3>
+                        <div id="quiz-options" class="space-y-3">
+                            <!-- Buttons loaded via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Final Score Screen (Hidden by default) -->
+                    <div id="quiz-result-box" class="hidden text-center py-6">
+                        <i class="fa-solid fa-trophy text-5xl text-amber-400 mb-4 animate-bounce"></i>
+                        <h3 class="text-2xl font-bold text-white font-serif">¡Desafío Completado!</h3>
+                        <p id="quiz-final-text" class="text-slate-300 mt-2 text-lg">Obtuviste 0 de 50 puntos.</p>
+                        <button onclick="restartQuiz()" class="mt-6 px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-agro-950 font-bold text-sm shadow-lg transition">
+                            <i class="fa-solid fa-rotate-right"></i> Jugar de Nuevo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-agro-800/80 bg-agro-950 py-8 px-4 text-center text-slate-400 text-xs">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p>© 2026 Portal AgroLíderes. Información corporativa y tecnológica sobre las 5 mayores empresas agrícolas.</p>
+                <div class="flex items-center gap-4 text-slate-300 text-sm">
+                    <i class="fa-solid fa-seedling text-emerald-400"></i>
+                    <i class="fa-solid fa-tractor text-amber-400"></i>
+                    <i class="fa-solid fa-wheat-awn text-emerald-300"></i>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        /* ==========================================================================
+           1. STRICT LOCAL IMAGE ERROR HANDLER
+           ========================================================================== */
+        function handleImageError(imgElement, companyName, expectedPath, emojiIcon) {
+            // Replace the broken image tag with a nicely styled fallback placeholder card
+            const parent = imgElement.parentElement;
+            parent.innerHTML = `
+                <div class="w-full h-full min-h-[280px] bg-gradient-to-br from-agro-900 to-slate-900 border-2 border-dashed border-emerald-500/40 rounded-2xl flex flex-col items-center justify-center p-6 text-center shadow-inner">
+                    <div class="text-5xl mb-3 animate-pulse">${emojiIcon}</div>
+                    <h4 class="text-white font-bold font-serif text-lg">${companyName}</h4>
+                    <p class="text-amber-400 text-xs font-mono mt-2 bg-agro-950/80 px-3 py-1.5 rounded-lg border border-amber-500/30">
+                        Sube tu foto a: <br><span class="text-emerald-300 font-bold">${expectedPath}</span>
+                    </p>
+                    <span class="text-[11px] text-slate-400 mt-3 max-w-xs">
+                        Para ver la imagen real en esta tarjeta, coloca la fotografía en la carpeta local <code class="text-emerald-400">images/</code>.
+                    </span>
+                </div>
+            `;
+        }
+
+        /* ==========================================================================
+           2. ORGANIC FLOATING PARTICLES CANVAS ANIMATION
+           ========================================================================== */
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 45;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class LeafParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.speedY = Math.random() * 0.6 + 0.2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.4 ? '#10b981' : '#f59e0b';
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = (Math.random() - 0.5) * 0.02;
+            }
+
+            update() {
+                this.x += this.speedX + Math.sin(this.angle) * 0.3;
+                this.y += this.speedY;
+                this.angle += this.spin;
+
+                if (this.y > canvas.height + 10 || this.x < -10 || this.x > canvas.width + 10) {
+                    this.y = -10;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                
+                // Draw tiny organic spore / leaf shape
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.size, this.size * 2, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new LeafParticle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* ==========================================================================
+           3. AMBIENT AUDIO SYNTHESIZER (WEB AUDIO API)
+           ========================================================================== */
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let masterGain = null;
+        let ambientOscillator = null;
+
+        function toggleAmbientAudio() {
+            const statusText = document.getElementById('audio-status');
+            const icon = document.getElementById('audio-icon');
+
+            if (!audioCtx) {
+                // Initialize Web Audio
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                masterGain = audioCtx.createGain();
+                masterGain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                masterGain.connect(audioCtx.destination);
+
+                // Create warm ambient drone synth
+                ambientOscillator = audioCtx.createOscillator();
+                ambientOscillator.type = 'sine';
+                ambientOscillator.frequency.setValueAtTime(146.83, audioCtx.currentTime); // D3 pitch
+
+                const lfo = audioCtx.createOscillator();
+                lfo.frequency.setValueAtTime(0.2, audioCtx.currentTime);
+                const lfoGain = audioCtx.createGain();
+                lfoGain.gain.setValueAtTime(15, audioCtx.currentTime);
+                
+                lfo.connect(lfoGain);
+                lfoGain.connect(ambientOscillator.frequency);
+
+                ambientOscillator.connect(masterGain);
+                ambientOscillator.start();
+                lfo.start();
+
+                isAudioPlaying = true;
+                statusText.textContent = "Ambiente Activo";
+                icon.className = "fa-solid fa-volume-high text-emerald-400";
+            } else {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                    isAudioPlaying = true;
+                    statusText.textContent = "Ambiente Activo";
+                    icon.className = "fa-solid fa-volume-high text-emerald-400";
+                } else if (audioCtx.state === 'running') {
+                    audioCtx.suspend();
+                    isAudioPlaying = false;
+                    statusText.textContent = "Ambiente Pausado";
+                    icon.className = "fa-solid fa-volume-xmark text-slate-400";
+                }
+            }
+        }
+
+        /* ==========================================================================
+           4. LIVE WEATHER & PLANTING CALENDAR (OPEN-METEO API)
+           ========================================================================== */
+        async function fetchWeather(lat, lon, cityName = "Tu Ubicación Actual") {
+            const loadingBox = document.getElementById('weather-loading');
+            const contentBox = document.getElementById('weather-content');
+            
+            try {
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const data = await response.json();
+                const cw = data.current_weather;
+
+                document.getElementById('weather-temp').textContent = `${Math.round(cw.temperature)} °C`;
+                document.getElementById('weather-location').textContent = cityName;
+                document.getElementById('weather-wind').textContent = `${cw.windspeed} km/h`;
+
+                // Weather interpretation
+                let weatherDesc = "Despejado";
+                let weatherEmoji = "☀️";
+                if (cw.weathercode > 0 && cw.weathercode <= 3) { weatherDesc = "Parcial Nublado"; weatherEmoji = "⛅"; }
+                else if (cw.weathercode > 40 && cw.weathercode <= 65) { weatherDesc = "Lluvia Ligera"; weatherEmoji = "🌧️"; }
+                else if (cw.weathercode > 65) { weatherDesc = "Tormenta/Lluvia"; weatherEmoji = "⛈️"; }
+
+                document.getElementById('weather-code').textContent = weatherDesc;
+                document.getElementById('weather-icon-box').textContent = weatherEmoji;
+
+                // Dynamic Crop Planting Advisory
+                updateCropAdvisory(cw.temperature);
+
+                loadingBox.classList.add('hidden');
+                contentBox.classList.remove('hidden');
+            } catch (err) {
+                loadingBox.innerHTML = `<span class="text-amber-400">Error cargando clima local. Intenta nuevamente.</span>`;
+            }
+        }
+
+        function updateCropAdvisory(temp) {
+            const advBox = document.getElementById('crop-recommendation');
+            if (temp < 15) {
+                advBox.innerHTML = `
+                    <div class="p-3 bg-emerald-950/80 rounded-xl border border-emerald-500/40">
+                        <span class="text-emerald-400 font-bold block mb-1">🌱 Clima Fresco/Templado Detectado (${temp}°C)</span>
+                        <p class="text-xs text-slate-200">Excelente época para sembrar <strong>Trigo de Invierno, Cebada, Avena y Hortalizas de Hoja (Espinaca, Lechuga)</strong>. Asegura fertilización rica en Potasio (Nutrien) para proteger la raíz contra el frío.</p>
+                    </div>
+                `;
+            } else {
+                advBox.innerHTML = `
+                    <div class="p-3 bg-amber-950/80 rounded-xl border border-amber-500/40">
+                        <span class="text-amber-400 font-bold block mb-1">🌽 Clima Cálido Ideal Detectado (${temp}°C)</span>
+                        <p class="text-xs text-slate-200">Condición térmica perfecta para germinación rápida de <strong>Maíz Híbrido, Soya, Girasol y Algodón</strong>. Se recomienda aplicar semillas tratadas (Syngenta) y monitoreo de humedad por sensores (John Deere).</p>
+                    </div>
+                `;
+            }
+        }
+
+        function getUserLocationAndWeather() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => fetchWeather(pos.coords.latitude, pos.coords.longitude, "Ubicación Detectada GPS"),
+                    () => fetchWeather(-34.6037, -58.3816, "Sede Agrícola Referencial (Buenos Aires)")
+                );
+            } else {
+                fetchWeather(-34.6037, -58.3816, "Sede Agrícola Referencial");
+            }
+        }
+
+        // Auto load initial weather on start
+        window.addEventListener('load', () => {
+            fetchWeather(41.8781, -87.6298, "Chicago (Hub Agrícola ADM / Deere)");
+            calculateImpact();
+            initQuiz();
+        });
+
+        /* ==========================================================================
+           5. AGRICULTURAL IMPACT CALCULATOR
+           ========================================================================== */
+        function calculateImpact() {
+            const ha = parseFloat(document.getElementById('calc-hectares').value) || 0;
+            const crop = document.getElementById('calc-crop').value;
+            const tech = document.getElementById('calc-tech').value;
+
+            // Yield multipliers
+            let baseYield = 9.5; // Tn per hectare for Corn
+            let pricePerTon = 220; // USD
+
+            if (crop === 'soya') { baseYield = 3.8; pricePerTon = 480; }
+            else if (crop === 'trigo') { baseYield = 4.2; pricePerTon = 260; }
+            else if (crop === 'girasol') { baseYield = 2.5; pricePerTon = 410; }
+
+            let techMultiplier = 1.0;
+            let waterSavedPerHa = 1200; // liters
+
+            if (tech === 'intermedia') { techMultiplier = 1.2; waterSavedPerHa = 2800; }
+            else if (tech === 'avanzada') { techMultiplier = 1.35; waterSavedPerHa = 4500; }
+
+            const totalYield = Math.round(ha * baseYield * techMultiplier);
+            const totalWater = Math.round(ha * waterSavedPerHa);
+            const totalValue = Math.round(totalYield * pricePerTon);
+
+            document.getElementById('res-yield').textContent = `${totalYield.toLocaleString()} Tn`;
+            document.getElementById('res-water').textContent = `${(totalWater / 1000).toLocaleString()} m³`;
+            document.getElementById('res-value').textContent = `$${totalValue.toLocaleString()} USD`;
+        }
+
+        /* ==========================================================================
+           6. AGRO TRIVIA QUIZ MINIGAME
+           ========================================================================== */
+        const quizData = [
+            {
+                q: "¿Qué familia o herederos poseen aproximadamente el 88% de Cargill?",
+                options: ["Familias Cargill y MacMillan", "Bill Gates", "ChemChina Group", "Accionistas de NYSE"],
+                correct: 0
+            },
+            {
+                q: "¿Qué gigante agrícola fue fundado en 1837 por un herrero que inventó el arado de acero pulido?",
+                options: ["Nutrien", "ADM", "John Deere", "Syngenta"],
+                correct: 2
+            },
+            {
+                q: "Syngenta nació de la fusión de divisiones agrícolas de Novartis y AstraZeneca. ¿Qué conglomerado estatal la adquirió?",
+                options: ["Sinochem / ChemChina", "BlackRock", "Vanguard", "Cascade Investment"],
+                correct: 0
+            },
+            {
+                q: "¿Dónde tiene su sede central la procesadora de granos Archer Daniels Midland (ADM)?",
+                options: ["Minnetonka, Minnesota", "Chicago, Illinois", "Saskatoon, Canadá", "Basilea, Suiza"],
+                correct: 1
+            },
+            {
+                q: "¿Cómo se creó Nutrien en 2018 para convertirse en el mayor productor mundial de potasa y fertilizantes?",
+                options: ["Fusión de PotashCorp y Agrium", "Compra directa por parte de Cargill", "Separación de John Deere", "Inversión exclusiva de Norges Bank"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let highScore = localStorage.getItem('agro_quiz_highscore') || 0;
+
+        function initQuiz() {
+            document.getElementById('quiz-high-score').textContent = `${highScore} pts`;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestion >= quizData.length) {
+                showQuizResults();
+                return;
+            }
+
+            const q = quizData[currentQuestion];
+            document.getElementById('quiz-progress-text').textContent = `Pregunta ${currentQuestion + 1} de ${quizData.length}`;
+            document.getElementById('quiz-current-score').textContent = `Puntos: ${score}`;
+            document.getElementById('quiz-question').textContent = q.q;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl bg-agro-950 hover:bg-agro-800 border border-agro-700 text-slate-200 text-sm transition font-medium flex items-center justify-between";
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>`;
+                btn.onclick = () => checkAnswer(idx);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIdx) {
+            if (selectedIdx === quizData[currentQuestion].correct) {
+                score += 10;
+            }
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-question-box').classList.add('hidden');
+            document.getElementById('quiz-result-box').classList.remove('hidden');
+            document.getElementById('quiz-final-text').textContent = `Lograste ${score} de 50 puntos posibles.`;
+
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('agro_quiz_highscore', highScore);
+                document.getElementById('quiz-high-score').textContent = `${highScore} pts`;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-result-box').classList.add('hidden');
+            document.getElementById('quiz-question-box').classList.remove('hidden');
+            loadQuestion();
+        }
+    </script>
+</body>
+</html>
